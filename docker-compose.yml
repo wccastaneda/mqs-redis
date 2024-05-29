@@ -1,0 +1,39 @@
+version: "3"
+services:
+  # db:
+  #   image: "postgres"
+  #   container_name: "fua-db"
+  #   environment:
+  #     - POSTGRES_DB=fua_db
+  #   ports:
+  #     - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    container_name: "fua-redis"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./config/redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+  
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: "fua-rabbitmq"
+    ports:
+        - 5672:5672
+        - 15672:15672
+      
+  # prometheus:
+  #   image: "prom/prometheus:v2.24.1"
+  #   container_name: "fua-prometheus"
+  #   volumes:
+  #       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   ports:
+  #       - "9090:9090"
+    
+  # grafana:
+  #   image: "grafana/grafana:master-ubuntu"
+  #   container_name: "fua-grafana"
+  #   ports:
+  #       - "3000:3000"
